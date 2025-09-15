@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Health Service Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-icon">
+                <!-- SVG lightning icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                </svg>
+                <h1>Health Service Dashboard</h1>
+            </div>
+            <p>Real-time status of monitored services</p>
+        </header>
+
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for service, status in results.items() %}
+                    <tr>
+                        <td>{{ service }}</td>
+                        <td class="{{ status|lower }}">
+                            <!-- Status SVG -->
+                            {% if status == "UP" %}
+                            <svg class="status-icon up" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 11.03a.75.75 0 0 0 1.08.022l3.992-4.99a.75.75 0 1 0-1.14-.976L7.477 9.417 5.383 7.323a.75.75 0 0 0-1.06 1.06l2.647 2.647z"/>
+                            </svg>
+                            {% else %}
+                            <svg class="status-icon down" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.146 10.854a.5.5 0 0 1-.708 0L8 8.707l-2.438 2.147a.5.5 0 0 1-.708-.708L7.293 8l-2.147-2.146a.5.5 0 1 1 .708-.708L8 7.293l2.146-2.147a.5.5 0 1 1 .708.708L8.707 8l2.439 2.146a.5.5 0 0 1 0 .708z"/>
+                                </svg>
+                            {% endif %}
+                            {{ status }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
