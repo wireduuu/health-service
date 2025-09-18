@@ -23,13 +23,13 @@
                 <thead>
                     <tr>
                         <th>Service</th>
-                        <th>Status</th>
+                        <th class="status">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for service, status in results.items() %}
                     <tr>
-                        <td>{{ service }}</td>
+                        <td class="service">{{ service }}</td>
                         <td class="{{ status|lower }}">
                             <!-- Status SVG -->
                             {% if status == "UP" %}

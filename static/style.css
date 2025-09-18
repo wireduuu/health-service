@@ -63,16 +63,25 @@ th {
     font-size: 1rem;
 }
 
+th.status {
+    text-align: left;
+}
+
 td {
     padding: 14px;
     border-top: 1px solid #eee;
     font-size: 0.95rem;
 }
 
+td.service {
+    text-align: left;
+}
+
 /* Apply flex only to the status column */
 td.up, td.down {
     display: flex;
-    align-items: center;
+    align-items: left;
+    justify-content: left;
     gap: 8px;
 }
 
