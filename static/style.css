@@ -77,7 +77,6 @@ td.service {
     text-align: left;
 }
 
-/* Apply flex only to the status column */
 td.up, td.down {
     display: flex;
     align-items: left;

@@ -1,39 +1,33 @@
 from flask import Flask, jsonify, render_template
-import requests, random
+import requests
 
 app = Flask(__name__)
 
-# ----------------------------
-# Define your own endpoints
+
+# endpoints definition
 # ----------------------------
 
 @app.route("/api/v1/users")
 def users_service():
-    """Simulated Users service (application-level)."""
-    if random.choice([True, False, False]):  # ~33% chance of failure
-        return jsonify({"error": "Application error occurred"}), 500
+    """Simulated Users service (always healthy)."""
     return jsonify({"status": "users service active"}), 200
 
 
 @app.route("/api/v1/db-check")
 def db_service():
-    """Simulated Database connectivity check."""
-    if random.choice([True, False]):  # 50% chance of DB outage
-        return jsonify({"error": "Database unreachable"}), 503
-    return jsonify({"status": "database reachable"}), 200
+    """Simulated Database connectivity check (always DOWN)."""
+    return jsonify({"error": "Database unreachable"}), 503
 
 
 @app.route("/api/v1/payment-status")
 def payment_service():
-    """Simulated Payment API check (external dependency)."""
-    if random.choice([True, False, False]):  # ~33% chance external API down
-        return jsonify({"error": "Payment provider unavailable"}), 502
+    """Simulated Payment API check (always healthy)."""
     return jsonify({"status": "payment API healthy"}), 200
 
 
-# ----------------------------
 # Services to monitor
 # ----------------------------
+
 SERVICES = {
     "Users Service": "http://localhost:5000/api/v1/users",
     "Database Service": "http://localhost:5000/api/v1/db-check",
@@ -52,9 +46,9 @@ def check_services():
     return results
 
 
-# ----------------------------
 # Health endpoint + Dashboard
 # ----------------------------
+
 @app.route("/health")
 def health():
     """Return JSON metrics for services."""
